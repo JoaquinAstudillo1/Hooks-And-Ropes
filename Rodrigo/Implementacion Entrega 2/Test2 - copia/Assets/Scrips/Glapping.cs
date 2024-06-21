@@ -17,7 +17,12 @@ public class GrapplingGun : MonoBehaviour
 
     private bool shouldDrawRope = true;
 
-
+    Vector3 DownA = new Vector3(-0.587f, -0.809f, 0); //LShift: DownA  -cos54(-sen36), -sen54(-cos36)
+    Vector3 DownB = new Vector3(0.587f, -0.809f, 0); //Space: DownB  cos54(sen36), -sen54(-cos36)
+    Vector3 TopA = new Vector3(-0.951f, 0.309f, 0); //A: TopA -cos18(-sen72) y sen18(cos72)
+    Vector3 TopB = new Vector3(0.951f, 0.309f, 0); //D: TopB cos18(sen72), sen18(cos72)
+    Vector3 Top = Quaternion.Euler(0f, 30f, 0f) * Vector3.up; //W:Top 
+    
     void Awake()
     {
         lr = GetComponent<LineRenderer>();
@@ -25,11 +30,17 @@ public class GrapplingGun : MonoBehaviour
 
     void Update()
     {
-        HandleGrappleInput(KeyCode.W, Quaternion.Euler(0f, 30f, 0f) * Vector3.up);
-        HandleGrappleInput(KeyCode.D, Quaternion.Euler(0f, 0f, 45f) * Vector3.right);
-        HandleGrappleInput(KeyCode.A, Quaternion.Euler(0f, 0f, -45f) * Vector3.left);
-        HandleGrappleInput(KeyCode.X, Quaternion.Euler(0f, 0f, 45f) * Vector3.down);
-        HandleGrappleInput(KeyCode.Z, Quaternion.Euler(0f, 0f, -45f) * Vector3.down);
+        // HandleGrappleInput(KeyCode.W, Quaternion.Euler(0f, 30f, 0f) * Vector3.up);
+        // HandleGrappleInput(KeyCode.D, Quaternion.Euler(0f, 0f, 45f) * Vector3.right);
+        // HandleGrappleInput(KeyCode.A, Quaternion.Euler(0f, 0f, -45f) * Vector3.left);
+        // HandleGrappleInput(KeyCode.X, Quaternion.Euler(0f, 0f, 45f) * Vector3.down);
+        // HandleGrappleInput(KeyCode.Z, Quaternion.Euler(0f, 0f, -45f) * Vector3.down);
+
+        HandleGrappleInput(KeyCode.W, Top);
+        HandleGrappleInput(KeyCode.D, TopB);
+        HandleGrappleInput(KeyCode.A, TopA);
+        HandleGrappleInput(KeyCode.LeftShift, DownA);
+        HandleGrappleInput(KeyCode.Space, DownB);
 
         HandleHorizontalMovement();
     }
